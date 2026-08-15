@@ -260,12 +260,7 @@ function App() {
 
       <main>
         <section className="hero" id="top">
-          <img
-            className="hero-image"
-            src="/images/current/community-tasting.jpg"
-            alt="Guests gathering at Grape Expectations"
-          />
-          <div className="hero-shade" />
+          <div className="hero-art" aria-hidden="true" />
           <div className="hero-content page-shell">
             <div className="hero-kicker">
               <p className="eyebrow">Winter Haven, Florida</p>
