@@ -220,7 +220,7 @@ function App() {
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           <a href="#wine">Wine</a>
-          <a href="#experience">Experience</a>
+          <a href="#gallery">Photos</a>
           <a href="#happenings">Happenings</a>
           <a href="#visit">Visit</a>
         </nav>
@@ -245,7 +245,7 @@ function App() {
         <div className="mobile-menu">
           <nav aria-label="Mobile navigation">
             <a href="#wine" onClick={closeMenu}>Wine</a>
-            <a href="#experience" onClick={closeMenu}>Experience</a>
+            <a href="#gallery" onClick={closeMenu}>Photos</a>
             <a href="#happenings" onClick={closeMenu}>Happenings</a>
             <a href="#visit" onClick={closeMenu}>Visit</a>
           </nav>
@@ -369,31 +369,6 @@ function App() {
           </div>
         </section>
 
-        <section className="story-section section" id="experience">
-          <div className="page-shell story-grid">
-            <div className="story-image story-image-main">
-              <img src="/images/current/friends-at-the-bar.jpg" alt="Friends enjoying time together at the wine bar" />
-            </div>
-            <div className="story-copy">
-              <p className="eyebrow">Stay awhile</p>
-              <h2>Good wine. Fresh charcuterie. Zero pretense.</h2>
-              <p>
-                Grape Expectations is the kind of place where one glass becomes
-                a conversation. Settle in at the bar, share a board, and let the
-                staff help you find something that fits the moment.
-              </p>
-              <div className="story-points">
-                <div><strong>Generous pours</strong><span>Wine lover approved</span></div>
-                <div><strong>Indoor + outdoor</strong><span>Choose your pace</span></div>
-                <div><strong>Friendly guidance</strong><span>No wine test required</span></div>
-              </div>
-            </div>
-            <div className="story-image story-image-secondary">
-              <img src="/images/current/wine-display.jpg" alt="Bottles displayed at the Grape Expectations bar" />
-            </div>
-          </div>
-        </section>
-
         <section className="happenings-section section" id="happenings">
           <div className="page-shell">
             <div className="happenings-heading">
@@ -433,7 +408,7 @@ function App() {
           </div>
         </section>
 
-        <section className="gallery-section section" aria-labelledby="gallery-title">
+        <section className="gallery-section section" id="gallery" aria-labelledby="gallery-title">
           <div className="page-shell">
             <div className="gallery-heading">
               <div>
