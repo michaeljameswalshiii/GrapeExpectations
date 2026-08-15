@@ -11,13 +11,98 @@ import {
   GlassWater,
   MapPin,
   Menu,
+  Music2,
+  Palette,
+  PawPrint,
   Phone,
   X,
 } from "lucide-react";
 
 const FACEBOOK_URL = "https://www.facebook.com/GrapeExpectationsWineBar/";
 const MAP_URL =
-  "https://www.google.com/maps/search/?api=1&query=Grape+Expectations+5535+Cypress+Gardens+Blvd+Winter+Haven+FL+33884";
+  "https://www.google.com/maps/search/?api=1&query=Grape+Expectations+5535+Cypress+Gardens+Blvd+Suite+150+Winter+Haven+FL+33884";
+const CYPRESS_STATION_URL =
+  "https://www.google.com/maps/search/?api=1&query=Cypress+Station+Winter+Haven+FL";
+
+const weeklyHours = [
+  { day: "Sunday", open: 16, close: 20 },
+  { day: "Monday", open: null, close: null },
+  { day: "Tuesday", open: 12, close: 22 },
+  { day: "Wednesday", open: 12, close: 22 },
+  { day: "Thursday", open: 12, close: 22 },
+  { day: "Friday", open: 12, close: 22 },
+  { day: "Saturday", open: 12, close: 22 },
+] as const;
+
+const eventSchedule = [
+  {
+    timing: "Every open day",
+    status: "Recurring",
+    title: "Happy hour pours",
+    copy: "Settle in with generous pours and rotating wine specials from a broad list of vintages.",
+    linkLabel: "See today's pours",
+    icon: Clock3,
+  },
+  {
+    timing: "Select nights",
+    status: "Occasional",
+    title: "Live & local",
+    copy: "Soft piano, acoustic guitar, and local vocalists bring an easy soundtrack to the room.",
+    linkLabel: "Watch for the next date",
+    icon: Music2,
+  },
+  {
+    timing: "Past favorite",
+    status: "Event archive",
+    title: "Yappy Hour",
+    copy: "A patio gathering for wine lovers and their four-legged companions, previously featured at the bar.",
+    linkLabel: "Follow for its return",
+    icon: PawPrint,
+  },
+  {
+    timing: "Past favorite",
+    status: "Event archive",
+    title: "Creative nights",
+    copy: "Painted glasses, sip-and-create gatherings, and relaxed community nights with a creative streak.",
+    linkLabel: "Follow for new events",
+    icon: Palette,
+  },
+] as const;
+
+function getVenueStatus() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    weekday: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date());
+  const value = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((part) => part.type === type)?.value ?? "";
+  const day = value("weekday");
+  const minutes = Number(value("hour")) * 60 + Number(value("minute"));
+  const todayIndex = weeklyHours.findIndex((entry) => entry.day === day);
+  const today = weeklyHours[todayIndex];
+
+  if (today?.open !== null && today?.close !== null) {
+    if (minutes >= today.open * 60 && minutes < today.close * 60) {
+      return { open: true, label: `Open now - until ${today.close === 22 ? "10 PM" : "8 PM"}` };
+    }
+    if (minutes < today.open * 60) {
+      return { open: false, label: `Opens today at ${today.open === 12 ? "noon" : "4 PM"}` };
+    }
+  }
+
+  for (let offset = 1; offset <= 7; offset += 1) {
+    const next = weeklyHours[(todayIndex + offset) % weeklyHours.length];
+    if (next.open !== null) {
+      const when = offset === 1 ? "tomorrow" : next.day;
+      return { open: false, label: `Opens ${when} at ${next.open === 12 ? "noon" : "4 PM"}` };
+    }
+  }
+
+  return { open: false, label: "Closed now" };
+}
 
 const pours = [
   {
@@ -81,6 +166,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [pour, setPour] = useState<(typeof pours)[number]["id"]>("red");
   const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
+  const [venueStatus, setVenueStatus] = useState(getVenueStatus);
   const selectedPour = pours.find((item) => item.id === pour) ?? pours[0];
 
   useEffect(() => {
@@ -89,6 +175,11 @@ function App() {
       document.body.style.overflow = "";
     };
   }, [menuOpen, galleryIndex]);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setVenueStatus(getVenueStatus()), 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const closeMenu = () => setMenuOpen(false);
   const moveGallery = (direction: number) => {
@@ -155,11 +246,16 @@ function App() {
           />
           <div className="hero-shade" />
           <div className="hero-content page-shell">
-            <p className="eyebrow">Winter Haven, Florida</p>
+            <div className="hero-kicker">
+              <p className="eyebrow">Winter Haven, Florida</p>
+              <span className={`venue-status ${venueStatus.open ? "is-open" : ""}`}>
+                <span aria-hidden="true" />{venueStatus.label}
+              </span>
+            </div>
             <h1>Grape<br />Expectations</h1>
             <p className="hero-copy">
-              Your neighborhood wine bar for generous pours, fresh pairings,
-              familiar faces, and nights that unfold at their own pace.
+              A relaxed neighborhood bar with a big list of vintages, generous
+              pours, and happy hour specials worth lingering over.
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="#wine">
@@ -258,22 +354,29 @@ function App() {
               </a>
             </div>
 
-            <div className="event-list">
-              <article>
-                <span className="event-number">01</span>
-                <div><h3>Live & local</h3><p>Soft piano, acoustic guitar, and local vocalists rotate through the room.</p></div>
-                <CalendarDays size={22} />
-              </article>
-              <article>
-                <span className="event-number">02</span>
-                <div><h3>Creative nights</h3><p>Painted glasses, sip-and-create gatherings, and one-of-a-kind community events.</p></div>
-                <GlassWater size={22} />
-              </article>
-              <article>
-                <span className="event-number">03</span>
-                <div><h3>Daily wine specials</h3><p>Two-for-one selections make it easy to stay for the second glass.</p></div>
-                <Clock3 size={22} />
-              </article>
+            <div className="event-schedule">
+              {eventSchedule.map((event) => {
+                const EventIcon = event.icon;
+                return (
+                  <article className="event-card" key={event.title}>
+                    <div className="event-card-topline">
+                      <span>{event.timing}</span>
+                      <span className="event-status">{event.status}</span>
+                    </div>
+                    <EventIcon size={24} strokeWidth={1.5} aria-hidden="true" />
+                    <h3>{event.title}</h3>
+                    <p>{event.copy}</p>
+                    <a href={FACEBOOK_URL} target="_blank" rel="noreferrer">
+                      {event.linkLabel} <ArrowUpRight size={15} />
+                    </a>
+                  </article>
+                );
+              })}
+            </div>
+            <div className="event-source-note">
+              <CalendarDays size={18} aria-hidden="true" />
+              <p><strong>Facebook is the live calendar.</strong> Past favorites are labeled, and new dates appear there first.</p>
+              <a href={FACEBOOK_URL} target="_blank" rel="noreferrer">Open Facebook <ArrowUpRight size={15} /></a>
             </div>
           </div>
         </section>
@@ -319,8 +422,12 @@ function App() {
             <div className="visit-copy">
               <p className="eyebrow eyebrow-dark">Come by</p>
               <h2>Your seat is closer than you think.</h2>
+              <p className="visit-description">Relaxed bar with a big list of vintages, as well as happy hour specials.</p>
+              <a className="venue-location" href={CYPRESS_STATION_URL} target="_blank" rel="noreferrer">
+                <MapPin size={16} /> Located in Cypress Station <ArrowUpRight size={14} />
+              </a>
               <address>
-                5535 Cypress Gardens Blvd, Suite 150<br />
+                5535 Cypress Gardens Blvd #150<br />
                 Winter Haven, FL 33884
               </address>
               <div className="visit-actions">
@@ -333,10 +440,18 @@ function App() {
               </div>
             </div>
             <div className="hours">
-              <div className="hours-heading"><Clock3 size={20} /><h3>Hours</h3></div>
+              <div className="hours-heading">
+                <div><Clock3 size={20} /><h3>Hours</h3></div>
+                <span className={`venue-status venue-status-dark ${venueStatus.open ? "is-open" : ""}`}>
+                  <span aria-hidden="true" />{venueStatus.label}
+                </span>
+              </div>
               <dl>
-                <div><dt>Monday – Saturday</dt><dd>12 PM – 10 PM</dd></div>
-                <div><dt>Sunday</dt><dd>3 PM – 7 PM</dd></div>
+                <div><dt>Monday</dt><dd>Closed</dd></div>
+                <div><dt>Tuesday - Thursday</dt><dd>12-10 PM</dd></div>
+                <div><dt>Friday</dt><dd>12-10 PM</dd></div>
+                <div><dt>Saturday</dt><dd>12-10 PM</dd></div>
+                <div><dt>Sunday</dt><dd>4-8 PM</dd></div>
               </dl>
               <p>Hours may shift for holidays and special events.</p>
               <a className="text-link" href={FACEBOOK_URL} target="_blank" rel="noreferrer">
