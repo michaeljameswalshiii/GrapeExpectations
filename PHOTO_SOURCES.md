@@ -1,20 +1,21 @@
 # Photo sources
 
-Venue photography was selected from public Grape Expectations listings. The Facebook page is the canonical business source but blocks anonymous automated retrieval, so the locally hosted copies were retrieved from the venue's public Restaurant Guru gallery.
+The live site uses nine Grape Expectations images supplied directly by the site owner from the business's social photo library on August 15, 2026.
+
+- Brand logo
+- Sidewalk wine sign
+- Mimosa feature
+- Charcuterie board feature
+- Patio guest photo
+- Friends at the bar
+- Chateau La Fortune Margaux feature
+- Wine display
+- Community tasting
+
+The supplied files do not include original EXIF capture dates. They are therefore presented as venue and promotional imagery without claims about exact event dates.
+
+Facebook remains the canonical live source for current events and announcements:
 
 - https://www.facebook.com/GrapeExpectationsWineBar/
-- https://restaurantguru.com/Grape-Expectations-Winter-Haven
 
-The images depict the Winter Haven venue, its wine selection, food, and branded sommelier artwork. No unrelated stock venue photography is used.
-
-## Approximate photo timing
-
-The source files do not contain original EXIF capture dates. Restaurant Guru's source records and filenames indicate that the currently displayed images span multiple years:
-
-- Hero wine/interior photo: source filename identifies August 2025; listing age is approximately one year.
-- Interior photo: listing age is approximately one year.
-- Charcuterie collage: mixes an image listed about three years old, an August 2025 image, and undated Instagram images.
-- Wine-selection collage: includes an image identified as February 2024 plus undated Instagram images.
-- Painted-glass collage: mixes images whose source records range from 2020 to approximately three years old.
-
-These are public venue photos, but they should not be presented as a single current photo shoot.
+No additional Instagram photos were added because no official public profile or post from the previous two months could be verified reliably without an authenticated source.

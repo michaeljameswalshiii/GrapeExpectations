@@ -135,26 +135,47 @@ const pours = [
   },
 ] as const;
 
+const featuredMoments = [
+  {
+    src: "/images/current/mimosas.jpg",
+    eyebrow: "Weekend ritual",
+    title: "Mimosas, made for sharing",
+    copy: "A bright pour and a house charcuterie board make an easy afternoon occasion.",
+  },
+  {
+    src: "/images/current/charcuterie-boards.jpg",
+    eyebrow: "Now serving",
+    title: "House charcuterie boards",
+    copy: "A savory spread designed to pair with the glass already in your hand.",
+  },
+  {
+    src: "/images/current/margaux-feature.jpg",
+    eyebrow: "Featured bottle",
+    title: "Chateau La Fortune Margaux",
+    copy: "A classic Bordeaux selection for memorable moments and unhurried conversation.",
+  },
+] as const;
+
 const gallery = [
   {
-    src: "/images/hero-interior.jpg",
-    alt: "A glass of red wine at the Grape Expectations bar",
+    src: "/images/current/community-tasting.jpg",
+    alt: "Guests gathering for a tasting at Grape Expectations",
   },
   {
-    src: "/images/charcuterie.jpg",
-    alt: "Wine and a charcuterie plate at Grape Expectations",
+    src: "/images/current/wine-display.jpg",
+    alt: "Wine bottles displayed at the Grape Expectations bar",
   },
   {
-    src: "/images/bar-interior.jpg",
-    alt: "The intimate Grape Expectations wine bar interior",
+    src: "/images/current/friends-at-the-bar.jpg",
+    alt: "Friends smiling together at Grape Expectations",
   },
   {
-    src: "/images/glass-at-bar.jpg",
-    alt: "A selection of wine bottles served at Grape Expectations",
+    src: "/images/current/patio-dog.jpg",
+    alt: "A dog in sunglasses enjoying the Grape Expectations patio",
   },
   {
-    src: "/images/wine-pour.jpg",
-    alt: "Wine and hand-painted glasses at Grape Expectations",
+    src: "/images/current/wine-sign.jpg",
+    alt: "A sidewalk sign inviting guests to enjoy a glass of wine",
   },
 ];
 
@@ -189,7 +210,11 @@ function App() {
     <>
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Grape Expectations home">
-          <span className="brand-mark">GE</span>
+          <img
+            className="brand-logo"
+            src="/images/current/grape-expectations-logo.jpg"
+            alt=""
+          />
           <span className="brand-name">Grape Expectations</span>
         </a>
 
@@ -235,13 +260,18 @@ function App() {
 
       <main>
         <section className="hero" id="top">
-          <img
-            className="hero-image"
-            src="/images/hero-interior.jpg"
-            alt="A generous glass of red wine at the Grape Expectations bar"
-          />
+          <div className="hero-mosaic" aria-hidden="true">
+            <img src="/images/current/community-tasting.jpg" alt="" />
+            <img src="/images/current/wine-display.jpg" alt="" />
+            <img src="/images/current/friends-at-the-bar.jpg" alt="" />
+          </div>
           <div className="hero-shade" />
           <div className="hero-content page-shell">
+            <img
+              className="hero-logo"
+              src="/images/current/grape-expectations-logo.jpg"
+              alt="Grape Expectations wine bar logo"
+            />
             <div className="hero-kicker">
               <p className="eyebrow">Winter Haven, Florida</p>
               <span className={`venue-status ${venueStatus.open ? "is-open" : ""}`}>
@@ -313,10 +343,36 @@ function App() {
           </div>
         </section>
 
+        <section className="featured-section section" aria-labelledby="featured-title">
+          <div className="page-shell">
+            <div className="featured-heading">
+              <div>
+                <p className="eyebrow eyebrow-dark">At the bar now</p>
+                <h2 id="featured-title">Current pours and pairings.</h2>
+              </div>
+              <p>
+                A closer look at the bottles, boards, and easy reasons to gather around the table.
+              </p>
+            </div>
+            <div className="featured-grid">
+              {featuredMoments.map((item) => (
+                <article className="featured-card" key={item.src}>
+                  <img src={item.src} alt={item.title} />
+                  <div>
+                    <p className="eyebrow eyebrow-dark">{item.eyebrow}</p>
+                    <h3>{item.title}</h3>
+                    <p>{item.copy}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="story-section section" id="experience">
           <div className="page-shell story-grid">
             <div className="story-image story-image-main">
-              <img src="/images/charcuterie.jpg" alt="Wine and a charcuterie plate at the bar" />
+              <img src="/images/current/friends-at-the-bar.jpg" alt="Friends enjoying time together at the wine bar" />
             </div>
             <div className="story-copy">
               <p className="eyebrow">Stay awhile</p>
@@ -333,7 +389,7 @@ function App() {
               </div>
             </div>
             <div className="story-image story-image-secondary">
-              <img src="/images/bar-interior.jpg" alt="Hanging glasses inside Grape Expectations" />
+              <img src="/images/current/wine-display.jpg" alt="Bottles displayed at the Grape Expectations bar" />
             </div>
           </div>
         </section>
@@ -461,7 +517,11 @@ function App() {
       <footer>
         <div className="page-shell footer-grid">
           <div>
-            <span className="footer-mark">GE</span>
+            <img
+              className="footer-logo"
+              src="/images/current/grape-expectations-logo.jpg"
+              alt=""
+            />
             <h2>Grape Expectations</h2>
             <p>Wine bar · Winter Haven, Florida</p>
           </div>
