@@ -260,18 +260,13 @@ function App() {
 
       <main>
         <section className="hero" id="top">
-          <div className="hero-mosaic" aria-hidden="true">
-            <img src="/images/current/community-tasting.jpg" alt="" />
-            <img src="/images/current/wine-display.jpg" alt="" />
-            <img src="/images/current/friends-at-the-bar.jpg" alt="" />
-          </div>
+          <img
+            className="hero-image"
+            src="/images/current/community-tasting.jpg"
+            alt="Guests gathering at Grape Expectations"
+          />
           <div className="hero-shade" />
           <div className="hero-content page-shell">
-            <img
-              className="hero-logo"
-              src="/images/current/grape-expectations-logo.jpg"
-              alt="Grape Expectations wine bar logo"
-            />
             <div className="hero-kicker">
               <p className="eyebrow">Winter Haven, Florida</p>
               <span className={`venue-status ${venueStatus.open ? "is-open" : ""}`}>
@@ -285,7 +280,7 @@ function App() {
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="#wine">
-                Explore the experience <ArrowRight size={17} />
+                Explore the wine <ArrowRight size={17} />
               </a>
               <a className="button button-quiet" href={MAP_URL} target="_blank" rel="noreferrer">
                 <MapPin size={17} /> Get directions
