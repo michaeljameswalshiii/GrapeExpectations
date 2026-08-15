@@ -710,7 +710,6 @@ footer h2 {
 .gallery-item-3 { grid-column: span 3; }
 .gallery-item-4 { grid-column: span 3; }
 .gallery-item-5 { grid-column: span 4; }
-.gallery-item-6 { grid-column: span 3; }
 
 .gallery-item-1 img { object-position: center 48%; }
 .gallery-item-2 img { object-position: 25% center; }
@@ -1009,10 +1008,9 @@ footer p {
 
   .gallery-item-1 { grid-column: span 7; }
   .gallery-item-2 { grid-column: span 5; }
-  .gallery-item-3,
+  .gallery-item-3 { grid-column: span 5; }
   .gallery-item-4,
-  .gallery-item-5,
-  .gallery-item-6 { grid-column: span 5; }
+  .gallery-item-5 { grid-column: span 6; }
 }
 
 @media (max-width: 720px) {
@@ -1167,14 +1165,12 @@ footer p {
   .gallery-item-2,
   .gallery-item-3,
   .gallery-item-4,
-  .gallery-item-5,
-  .gallery-item-6 {
+  .gallery-item-5 {
     grid-column: span 1;
     grid-row: span 1;
   }
 
-  .gallery-item-1,
-  .gallery-item-4 {
+  .gallery-item-1 {
     grid-row: span 2;
   }
 
@@ -1257,8 +1253,7 @@ footer p {
   .gallery-item-2,
   .gallery-item-3,
   .gallery-item-4,
-  .gallery-item-5,
-  .gallery-item-6 {
+  .gallery-item-5 {
     grid-column: span 1;
     grid-row: span 1;
   }

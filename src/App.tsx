@@ -156,10 +156,6 @@ const gallery = [
     src: "/images/wine-pour.jpg",
     alt: "Wine and hand-painted glasses at Grape Expectations",
   },
-  {
-    src: "/images/community.jpg",
-    alt: "A red wine pour with the Grape Expectations bar behind it",
-  },
 ];
 
 function App() {
